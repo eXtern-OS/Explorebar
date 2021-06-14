@@ -115,6 +115,8 @@ function adaptMaximizeState() {
 	}
 }
 
+win.showDevTools();
+
 function checkIfMinimized() {
 	console.log("maximize in here");
 	if (keepCheckingForMinimized) {
@@ -137,7 +139,22 @@ function checkIfMinimized() {
 			});
 		} else {
 		//console.log("now lets do adaptive: ",maximizedWindowsVerified);
-			adaptMaximizeState();
+		if (maximizedWindowsVerified.length > 0) {
+			var childProcess = require('child_process');
+			var spawn = childProcess.spawn;
+			
+			var child = spawn('/usr/eXtern/systemX/extern.explorebar/js/activeWindowDimensions.sh');
+			child.stdout._handle.setBlocking(true);
+			
+			child.stdout.on('data', function(data) {
+				var dataObj = JSON.parse(data.toString().replace(/'/g, '"'));
+				if ((dataObj.x+1) < screens[0].work_area.width && (dataObj.y+1) < screens[0].work_area.height)
+					adaptMaximizeState();
+				
+			});
+		}
+		
+			
 		}
 	}
 }
@@ -878,6 +895,8 @@ function loadWIndows(forceLoadChanges) {
         ////console.log("n_unfilteredSplit",n_unfilteredSplit);
          
       ////console.log("TO BE REMOVED closedWIndows: ", closedWIndows);
+
+	console.log("maimizedWindowsInDesktops: ",maimizedWindowsInDesktops);
         
         for (var i = 0; i < closedWIndows.length; i++) {
           
