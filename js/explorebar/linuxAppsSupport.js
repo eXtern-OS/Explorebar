@@ -86,8 +86,11 @@ var currentlyProcessingPos = 0;
 
 function adaptMaximizeState() {
 	if (maximizedWindowsVerified.length > 0) {
+		
 		if (!currentlyMaximized) {
-				currentlyMaximized = true;
+
+			if ((maximizedWindowsVerified[0].xOffset+1) < screens[0].work_area.width && (maximizedWindowsVerified[0].yOffset+1) < screens[0].work_area.height) {
+					currentlyMaximized = true;
 				$(".panels").addClass("hiddenOpacity");
 				$(".panelIndicator").removeClass("hidden");
 				win.height = 25;
@@ -97,6 +100,11 @@ function adaptMaximizeState() {
 				// }, 100);
 
 				executeNativeCommand('xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id '+win.sysWin.id);
+				
+				}
+
+
+
 				
 		}
 	} else {
@@ -139,20 +147,7 @@ function checkIfMinimized() {
 			});
 		} else {
 		//console.log("now lets do adaptive: ",maximizedWindowsVerified);
-		if (maximizedWindowsVerified.length > 0) {
-			var childProcess = require('child_process');
-			var spawn = childProcess.spawn;
-			
-			var child = spawn('/usr/eXtern/systemX/extern.explorebar/js/activeWindowDimensions.sh');
-			child.stdout._handle.setBlocking(true);
-			
-			child.stdout.on('data', function(data) {
-				var dataObj = JSON.parse(data.toString().replace(/'/g, '"'));
-				if ((dataObj.x+1) < screens[0].work_area.width && (dataObj.y+1) < screens[0].work_area.height)
-					adaptMaximizeState();
-				
-			});
-		}
+		adaptMaximizeState();
 		
 			
 		}
@@ -777,6 +772,7 @@ function loadWIndows(forceLoadChanges) {
 		activeWindow[0].yOffset = windowObject.yOffset;
 		activeWindow[0].width = windowObject.width;
 		activeWindow[0].height = windowObject.height; //lol
+		activeWindow[0].workspace = windowObject.workspace;
 	} else {
 		allActiveWindows.push(windowObject);
 	}
