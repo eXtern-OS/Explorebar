@@ -10,6 +10,13 @@
   width: 20em;
 }
 
+.animated {
+    -webkit-animation-duration: 0.25s !important;
+    animation-duration: 0.25s !important;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
 .clock.simple:after {
   background: #000;
   border-radius: 50%;
@@ -889,11 +896,6 @@ height: 100% !important;
 }
 
 .fadeOutDown {
-    -webkit-animation-duration: 0.5s !important;
-    animation-duration: 0.5s !important;
-}
-
-.fadeInUp {
     -webkit-animation-duration: 0.5s !important;
     animation-duration: 0.5s !important;
 }
