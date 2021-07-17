@@ -389,7 +389,7 @@ asound.getPlaybackDevices(function (audioDevices) {
         console.log("RS"+i,audioDevices[i].getName());
 });*/
 
-//win.showDevTools();
+win.showDevTools();
 
 
 
@@ -408,6 +408,13 @@ setTimeout(function(){
 }
 
 checkForShutDown();
+// Prevent capturing focus by the button.
+$('a').on('mousedown', 
+    /** @param {!jQuery.Event} event */ 
+    function(event) {
+        event.preventDefault();
+    }
+);
 
     
 
