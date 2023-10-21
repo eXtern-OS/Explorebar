@@ -15,9 +15,7 @@ var volumes = require('volumes');
 var si = require('systeminformation');
 var noOfDrives = 0
 //var monitor = require('node-usb-detection');
-var monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+
 //https://www.npmjs.com/package/node-usb-detection
 var stopCheckingForRecordingTIme = false;
 var screenRecordingLive = false;
