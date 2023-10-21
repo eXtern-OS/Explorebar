@@ -1,4 +1,7 @@
 indicatorHidden = false;
+var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 
 function updateTime() {
     var date = new Date();
@@ -27,6 +30,7 @@ function updateTime() {
     $("#PMAM").text(ampm);
     $("#Date").text(date.getDate());
     $("#Month").text(month);
+    $("#Month-Digits").text(date.getMonth());
     $("#Year").text(date.getFullYear());
     
     
